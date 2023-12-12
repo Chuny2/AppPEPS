@@ -23,7 +23,7 @@ def guardar_juego():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         juego_json = request.json
-        ret,code=controlador_juegos.insertar_juego(juego_json["nombre"], juego_json["descripcion"], float(juego_json["precio"]), juego_json["foto"])
+        ret,code=controlador_juegos.insertar_juego(juego_json["nombre"], juego_json["apellido"], float(juego_json["fecha_nacimiento"]))
     else:
         ret={"status":"Bad request"}
         code=401
@@ -39,7 +39,7 @@ def actualizar_juego():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         juego_json = request.json
-        ret,code=controlador_juegos.actualizar_juego(juego_json["id"],juego_json["nombre"], juego_json["descripcion"], float(juego_json["precio"]),juego_json["foto"])
+        ret,code=controlador_juegos.actualizar_juego(juego_json["id"],juego_json["nombre"], juego_json["apellido"], float(juego_json["fecha_nacimiento"]))
     else:
         ret={"status":"Bad request"}
         code=401

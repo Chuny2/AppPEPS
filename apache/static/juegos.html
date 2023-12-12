@@ -15,10 +15,10 @@
             tbody.innerHTML="";
             lista.forEach(juego => {
                 tbody.innerHTML+=`<tr>
-                        <td><img src="${juego.foto}" width="70"></td>
+                        
                         <td>${juego.nombre}</td>
-                        <td>${juego.descripcion}</td>
-                        <td>${juego.precio}</td>
+                        <td>${juego.apellido}</td>
+                        <td>${juego.fecha_nacimiento}</td>
                         <td>
                             <a href="/editar_juego.html?id=${juego.id}" class="button is-info">Editar</a>
                         </td>
@@ -118,10 +118,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Imagen</th>
+                         <!--   <th>Imagen</th> -->
                             <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
+                            <th>Apellido</th>
+                            <th>Fecha de nacimiento</th>
                             <th>Editar</th>
                             <th>Eliminar</th>
                         </tr>

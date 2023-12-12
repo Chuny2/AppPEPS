@@ -12,14 +12,14 @@
 
         function guardar(){
             let nombre=document.getElementById("nombre").value;
-            let descripcion=document.getElementById("descripcion").value;
-            let precio=document.getElementById("precio").value;
-            let foto=document.getElementById("foto").value;
+            let apellido=document.getElementById("apellido").value;
+            let fecha_nacimiento=document.getElementById("fecha_nacimiento").value;
+            //let foto=document.getElementById("foto").value;
             let datos=JSON.stringify({
                 "nombre":nombre,
-                "descripcion":descripcion,
-                "precio": precio,
-                "foto":foto
+                "apellido":apellido,
+                "fecha_nacimiento": fecha_nacimiento,
+              //  "foto":foto
             });
             var requestOptions = {
                 method: 'POST',
@@ -70,12 +70,12 @@
             <h3 class="is-size-3">Agregar juego</h3>
                 <label for="nombre">Nombre:</label>
                 <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
-                <label for="descripcion">Descripción</label>
-                <input required type="text" class="input" placeholder="Descripción" name="descripcion" id="descripcion">
-                <label for="precio">Precio</label>
-                <input required type="number" class="input" placeholder="Precio" name="precio" id="precio">
-                <label for="foto">Foto</label>
-                <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">
+                <label for="apellido">Apellido</label>
+                <input required type="text" class="input" placeholder="Apellido" name="apellido" id="apellido">
+                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                <input required type="number" class="input" placeholder="Fecha_nacimiento" name="fecha_nacimiento" id="fecha_nacimiento">
+              <!--  <label for="foto">Foto</label>-->
+              <!--  <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">-->
                 <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
                 <a href="/static/juego.html" class="button is-primary mt-2">Volver</a>
             </form>

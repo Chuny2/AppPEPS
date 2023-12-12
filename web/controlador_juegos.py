@@ -2,12 +2,12 @@ from __future__ import print_function
 from bd import obtener_conexion
 import sys
 
-def insertar_juego(nombre, descripcion, precio,foto):
+def insertar_juego(nombre, apellido, fecha_nacimientO):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("INSERT INTO juegos(nombre, descripcion, precio,foto) VALUES (%s, %s, %s,%s)",
-                       (nombre, descripcion, precio,foto))
+            cursor.execute("INSERT INTO pacientes(nombre, apellido, fecha_nacimiento) VALUES (%s, %s, %f)",
+                       (nombre, apellido, fecha_nacimiento))
             if cursor.rowcount == 1:
                 ret={"status": "OK" }
             else:
@@ -25,16 +25,15 @@ def convertir_juego_a_json(juego):
     d = {}
     d['id'] = juego[0]
     d['nombre'] = juego[1]
-    d['descripcion'] = juego[2]
-    d['precio'] = juego[3]
-    d['foto'] = juego[4]
+    d['apellido'] = juego[2]
+    d['fecha_nacimiento'] = juego[3]
     return d
 
 def obtener_juegos():
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("SELECT id, nombre, descripcion, precio,foto FROM juegos")
+            cursor.execute("SELECT id, nombre, apellido, fecha_nacimiento FROM pacientes")
             juegos = cursor.fetchall()
             juegosjson=[]
             if juegos:
@@ -53,8 +52,8 @@ def obtener_juego_por_id(id):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            #cursor.execute("SELECT id, nombre, descripcion, precio,foto FROM juegos WHERE id = %s", (id,))
-            cursor.execute("SELECT id, nombre, descripcion, precio,foto FROM juegos WHERE id =" + id)
+            #cursor.execute("SELECT id, nombre, apellido, fecha_nacimiento,foto FROM juegos WHERE id = %s", (id,))
+            cursor.execute("SELECT id, nombre, apellido, fecha_nacimiento FROM pacientes WHERE id =" + id)
             juego = cursor.fetchone()
             if juego is not None:
                 juegojson = convertir_juego_a_json(juego)
@@ -70,7 +69,7 @@ def eliminar_juego(id):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("DELETE FROM juegos WHERE id = %s", (id,))
+            cursor.execute("DELETE FROM pacientes WHERE id = %s", (id,))
             if cursor.rowcount == 1:
                 ret={"status": "OK" }
             else:
@@ -84,12 +83,12 @@ def eliminar_juego(id):
         code=500
     return ret,code
 
-def actualizar_juego(id, nombre, descripcion, precio, foto):
+def actualizar_juego(id, nombre, apellido, fecha_nacimiento, foto):
     try:
         conexion = obtener_conexion()
         with conexion.cursor() as cursor:
-            cursor.execute("UPDATE juegos SET nombre = %s, descripcion = %s, precio = %s, foto=%s WHERE id = %s",
-                       (nombre, descripcion, precio, foto,id))
+            cursor.execute("UPDATE pacientes SET nombre = %s, apellido = %s, fecha_nacimiento = %s WHERE id = %s",
+                       (nombre, apellido, fecha_nacimiento, foto,id))
             if cursor.rowcount == 1:
                 ret={"status": "OK" }
             else:
