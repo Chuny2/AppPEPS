@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJEMPLO APP WEB CON CRUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <script>
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        function guardar(){
+            let nombre=document.getElementById("nombre").value;
+            let apellido=document.getElementById("apellido").value;
+            let direccion=document.getElementById("direccion").value;
+            let telefono=document.getElementById("telefono").value;
+            //let foto=document.getElementById("foto").value;
+            let datos=JSON.stringify({
+                "nombre":nombre,
+                "apellido":apellido,
+                "direccion": direccion,
+                "telefono": telefono
+              //  "foto":foto
+            });
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: datos
+            };
+
+            fetch("/api/pacientes", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status == "OK"){
+                        alert("paciente guardado")
+                        location.href="pacientes.html"
+                    } else {
+                        alert("El paciente no ha podido ser guardado")
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Se ha producido un error y el paciente no ha podido ser guardado")
+                });
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="pacientes">pacientes</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                </div>
+            </div>
+        </div>
+    </nav>
+  <section class="section">
+    <div class="columns">
+        <div class="column">
+            <h3 class="is-size-3">Agregar paciente</h3>
+                <label for="nombre">Nombre:</label>
+                <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
+                <label for="apellido">Apellido</label>
+                <input required type="text" class="input" placeholder="Apellido" name="apellido" id="apellido">
+                <label for="direccion">direccion</label>
+                <input required type="text" class="input" placeholder="direccion" name="direccion" id="direccion">
+                <label for="telefono">telefono</label>
+                <input required type="number" class="input" placeholder="telefono" name="telefono" id="telefono">
+              <!--  <label for="foto">Foto</label>-->
+              <!--  <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">-->
+                <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
+                <a href="pacientes.html" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

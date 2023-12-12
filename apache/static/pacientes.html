@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJEMPLO APP WEB CON CRUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <script>
+        onload=function(){
+            pedirpacientes();
+        }
+        function pintarpacientes(lista){
+            let tbody=document.getElementsByTagName("tbody")[0];
+            tbody.innerHTML="";
+            lista.forEach(paciente => {
+                tbody.innerHTML+=`<tr>
+                        <td>${paciente.id}</td>
+                        <td>${paciente.nombre}</td>
+                        <td>${paciente.apellido}</td>
+                        <td>${paciente.direccion}</td>
+                        <td>${paciente.telefono}</td>
+                        <td>
+                            <a href="/editar_paciente.html?id=${paciente.id}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <button class="button is-danger" onclick="eliminarpaciente(${paciente.id})">Eliminar</button>
+                        </td>
+            </tr>`                            
+            });
+        }
+        function pedirpacientes(){
+            var requestOptions = {
+                method: 'GET'
+            };
+
+            fetch("/api/pacientes", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status){
+                        location.href="index.html";
+                    } else {
+                        pintarpacientes(result);
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Ha habido un error al recuperar los pacientes. Refresque la página")
+                });
+        }
+        function eliminarpaciente(id){
+            var requestOptions = {
+                method: 'DELETE'
+            };
+
+            fetch("/api/pacientes/"+id, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status == "OK"){
+                        alert("paciente eliminado")
+                        pedirpacientes();
+                    } else {
+                        alert("El paciente no ha podido ser eliminado")
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Se ha producido un error y el paciente no ha podido ser eliminado")
+                });
+        }
+        function cerrarSesion(){
+            var requestOptions = {
+                method: 'GET'
+            };
+            fetch("/api/logout", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status == "OK"){
+                        location.href="/index.html";
+                    } else {
+                        alert("No se ha podido cerrar sesión")
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Se ha producido un error y no se ha podido cerrar sesión")
+                });
+
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/pacientes.html">pacientes</a>
+                <a class="navbar-item" href="/subida.html">Archivos</a>
+                <a class="navbar-item" href="/citas.html">citas</a>
+                <a class="navbar-item" href="javascript:cerrarSesion()">Cerrar sesion</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">pacientes</h3>
+                <a href="/agregar_paciente.html" class="button is-success">Agregar</a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                         <!--   <th>Imagen</th> -->
+                            <th>id</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>direccion</th>
+                            <th>telefono</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                   </tbody>
+                </table>
+            </div>
+        </div>  
+    </section>    
+</body>
+</html>
