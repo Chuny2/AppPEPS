@@ -23,7 +23,7 @@ def guardar_cita():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         cita_json = request.json
-        ret,code=controlador_citas.insertar_cita(cita_json["paciente_id"],cita_json["fecha_hora"], cita_json["observaciones"], (cita_json["tratamiento"]), (cita_json["costo"]))
+        ret,code=controlador_citas.insertar_cita(cita_json["paciente_id"],cita_json["fecha"], cita_json["observaciones"], (cita_json["tratamiento"]), (cita_json["costo"]))
     else:
         ret={"status":"Bad request"}
         code=401
@@ -39,7 +39,7 @@ def actualizar_cita():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         cita_json = request.json
-        ret,code=controlador_citas.actualizar_cita(cita_json["id"],cita_json["paciente_id"],cita_json["fecha_hora"], cita_json["observaciones"], (cita_json["tratamiento"]), (cita_json["costo"]))
+        ret,code=controlador_citas.actualizar_cita(cita_json["id"],cita_json["paciente_id"],cita_json["fecha"], cita_json["observaciones"], (cita_json["tratamiento"]), (cita_json["costo"]))
     else:
         ret={"status":"Bad request"}
         code=401

@@ -12,17 +12,17 @@
         myHeaders.append("Content-Type", "application/json");
 
         function guardar(){
-            let nombre=document.getElementById("nombre").value;
-            let apellido=document.getElementById("apellido").value;
-            let direccion=document.getElementById("direccion").value;
-            let telefono=document.getElementById("telefono").value;
-            //let foto=document.getElementById("foto").value;
+            let paciente_id=document.getElementById("paciente_id").value;
+            let fecha= document.getElementById("fecha").value;
+            let observaciones=document.getElementById("observaciones").value;
+            let tratamiento=document.getElementById("tratamiento").value;
+            let costo=document.getElementById("costo").value;
             let datos=JSON.stringify({
-                "nombre":nombre,
-                "apellido":apellido,
-                "direccion": direccion,
-                "telefono": telefono
-              //  "foto":foto
+                "paciente_id":paciente_id,
+                "fecha":fecha,
+                "observaciones":observaciones,
+                "tratamiento": tratamiento,
+                "costo":costo
             });
             var requestOptions = {
                 method: 'POST',
@@ -30,19 +30,19 @@
                 body: datos
             };
 
-            fetch("/api/pacientes", requestOptions)
+            fetch("/api/citas", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.status == "OK"){
-                        alert("paciente guardado")
-                        location.href="pacientes.html"
+                        alert("cita guardado")
+                        location.href="citas.html"
                     } else {
-                        alert("El paciente no ha podido ser guardado")
+                        alert("La cita no ha podido ser guardada")
                     }
                 })
                 .catch(error => {
                     console.log('error', error);
-                    alert("Se ha producido un error y el paciente no ha podido ser guardado")
+                    alert("Se ha producido un error y la cita no ha podido ser guardada")
                 });
         }
     </script>
@@ -63,22 +63,26 @@
   <section class="section">
     <div class="columns">
         <div class="column">
-            <h3 class="is-size-3">Agregar paciente</h3>
-                <label for="nombre">Nombre:</label>
-                <input required type="text" class="input" placeholder="Nombre" name="nombre" id="nombre">
-                <label for="apellido">Apellido</label>
-                <input required type="text" class="input" placeholder="Apellido" name="apellido" id="apellido">
-                <label for="direccion">direccion</label>
-                <input required type="text" class="input" placeholder="direccion" name="direccion" id="direccion">
-                <label for="telefono">telefono</label>
-                <input required type="number" class="input" placeholder="telefono" name="telefono" id="telefono">
+            <h3 class="is-size-3">Agregar cita</h3>
+            <label for="paciente_id">paciente_id:</label>
+            <input required type="number" class="input" placeholder="paciente_id" name="paciente_id" id="paciente_id">
+            <label for="fecha">fecha</label>
+            <input required type="date" class="input" placeholder="fecha" name="fecha" id="fecha">
+            <label for="observaciones">observaciones</label>
+            <input required type="text" class="input" placeholder="observaciones" name="observaciones" id="observaciones">
+            <label for="tratamiento">tratamiento</label>
+            <input required type="text" class="input" placeholder="tratamiento" name="tratamiento" id="tratamiento">
+            <label for="costo">costo</label>
+            <input required type="number" class="input" placeholder="costo" name="costo" id="costo">
+            <label for=""></label>
               <!--  <label for="foto">Foto</label>-->
               <!--  <input required type="text" class="input" placeholder="Foto" name="foto" id="foto">-->
                 <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
-                <a href="pacientes.html" class="button is-primary mt-2">Volver</a>
+                <a href="citas.html" class="button is-primary mt-2">Volver</a>
             </form>
         </div>
     </div>
 </section>
+
 </body>
 </html>

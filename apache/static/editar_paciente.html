@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EJEMPLO APP WEB CON CRUD</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -72,25 +73,18 @@
     </script>
 </head>
 <body>
-    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </button>
-        </div>
-        <div class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" href="/pacientes">pacientes</a>
-            </div>
-            <div class="navbar-end">
-                <div class="navbar-item">
+    <header class="header">
+        <a href="" class="logo"></a>
+        <nav class="barra" >
+                <div >
+                    <a  href="/pacientes.html">pacientes</a>
+                    <a  href="/subida.html">Archivos</a>
+                    <a  href="/citas.html">citas</a>
+                    <a href="javascript:cerrarSesion()">Cerrar sesion</a>
                 </div>
-            </div>
-        </div>
-    </nav>
+              
+        </nav>
+    </header>
   <section class="section">
     <div class="columns">
         <div class="column">

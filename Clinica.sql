@@ -20,10 +20,10 @@ CREATE TABLE pacientes (
 CREATE TABLE citas (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     paciente_id INT UNSIGNED NOT NULL,
-    fecha_hora DATETIME NOT NULL,
+    fecha VARCHAR(10) NOT NULL,
     observaciones VARCHAR(255),
     tratamiento VARCHAR(255),
-    costo DECIMAL(9, 2),
+    costo VARCHAR(9),
     FOREIGN KEY (paciente_id) REFERENCES pacientes(id)
 );
 
@@ -37,11 +37,11 @@ VALUES
     ('Juan', 'Pérez', 'Calle Secundaria 789', '123-456-7890');
 
 -- Insertar citas de ejemplo
-INSERT INTO citas (paciente_id, fecha_hora, observaciones)
+INSERT INTO citas (paciente_id, fecha, observaciones)
 VALUES
-    (1, '2023-01-15 10:00:00', 'Examen de rutina para María González.'),
-    (2, '2023-02-20 14:30:00', 'Consulta dental para Juan Pérez.');
+    (1, '2023-01-15', 'Examen de rutina para María González.'),
+    (2, '2023-02-20', 'Consulta dental para Juan Pérez.');
 
-INSERT INTO citas (paciente_id, fecha_hora, observaciones, tratamiento, costo)
+INSERT INTO citas (paciente_id, fecha, observaciones, tratamiento, costo)
 VALUES
-    (1, '2023-12-15 10:00:00', 'Primera visita del paciente', 'Revisión general', 50.00);
+    (1, '2023-12-15', 'Primera visita del paciente', 'Revisión general', 50.00);

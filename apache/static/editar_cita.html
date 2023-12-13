@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJEMPLO APP WEB CON CRUD</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var id = urlParams.get('id');
+        onload=function(){
+            obtenerDatoscita(id);
+        }
+        function obtenerDatoscita(id){
+            var requestOptions = {
+                method: 'GET'
+            };
+
+            fetch("/api/cita/"+id, requestOptions)
+                .then(response => response.json())
+                .then(result => pintarcita(result))
+                .catch(error => {
+                    console.log('error', error)
+                    alert("Ha habido un error al recuperar los datos del cita");
+                    location.href="/citas.html";
+                });
+
+        }
+        function pintarcita(cita){
+            document.getElementById("paciente_id").value=cita.paciente_id;
+            document.getElementById("fecha").value=cita.fecha;
+            document.getElementById("observaciones").value=cita.observaciones;
+            document.getElementById("tratamiento").value=cita.tratamiento;
+            document.getElementById("costo").value=cita.costo;
+        }
+        function guardar(){            
+            let paciente_id=document.getElementById("paciente_id").value;
+            let fecha=document.getElementById("fecha").value;
+            let observaciones=document.getElementById("observaciones").value;
+            let tratamiento=document.getElementById("tratamiento").value;
+            let costo=document.getElementById("costo").value;
+            let datos=JSON.stringify({
+                "id":id,
+                "paciente_id":paciente_id,
+                "fecha":fecha,
+                "observaciones":observaciones,
+                "tratamiento": tratamiento,
+                "costo":costo
+            });
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: datos
+            };
+
+            fetch("/api/citas", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status == "OK"){
+                        alert("cita modificado")
+                        location.href="/citas.html"
+                    } else {
+                        alert("El cita no ha podido ser modificado")
+                    }
+                })
+                .catch(error => {
+                    console.log('error', error);
+                    alert("Se ha producido un error y el cita no ha podido ser modificado")
+                });
+        }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <a href="" class="logo"></a>
+        <nav class="barra" >
+                <div >
+                    <a  href="/pacientes.html">pacientes</a>
+                    <a  href="/subida.html">Archivos</a>
+                    <a  href="/citas.html">citas</a>
+                    <a href="javascript:cerrarSesion()">Cerrar sesion</a>
+                </div>
+              
+        </nav>
+    </header>
+  <section class="section">
+    <div class="columns">
+        <div class="column">
+            <h3 class="is-size-3">Editar cita</h3>
+                <label for="paciente_id">paciente_id:</label>
+                <input required type="number" class="input" placeholder="paciente_id" name="paciente_id" id="paciente_id">
+                <label for="fecha">fecha</label>
+                <input required type="date" class="input" placeholder="fecha" name="fecha" id="fecha">
+                <label for="observaciones">observaciones</label>
+                <input required type="text" class="input" placeholder="observaciones" name="observaciones" id="observaciones">
+                <label for="tratamiento">tratamiento</label>
+                <input required type="text" class="input" placeholder="tratamiento" name="tratamiento" id="tratamiento">
+                <label for="costo">costo</label>
+                <input required type="number" class="input" placeholder="costo" name="costo" id="costo">
+             
+                <button type="button" onclick="guardar()" class="button is-success mt-2">Guardar</button>
+                <a href="/citas.html" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
