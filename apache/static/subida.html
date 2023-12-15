@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
     <script>
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+        
         function enviarArchivo(){
             const formData = new FormData();
             formData.append('fichero',document.getElementById("fichero").files[0]);
@@ -56,6 +58,18 @@
     </script>
 </head>
 <body>
+    <header class="header">
+        <a href="" class="logo"></a>
+        <nav class="barra" >
+                <div >
+                    <a  href="/pacientes.html">Pacientes</a>
+                    <a  href="/citas.html">Citas</a>
+                    <a  href="/subida.html">Archivos</a>
+                    <a href="javascript:cerrarSesion()">Cerrar sesion</a>
+                </div>
+              
+        </nav>
+    </header>
     <h1>SUBIR UN ARCHIVO</h1>
         <label>Nombre archivo</label><input type="text" name="nombre" id="nombre"><br>
         <label>Archivo</label><input type="file" name="fichero" id="fichero"><br>
