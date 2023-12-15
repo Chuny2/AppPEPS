@@ -15,5 +15,7 @@ def upload():
         print('lugar' +  upload_path, file=sys.stdout)
         f.save(upload_path)
         return json.dumps({"status": "OK"}),200
-    except:
+    except Exception as e:
+        # Captura y registra el error específico que ocurrió
+        print(f"Error al cargar el archivo: {str(e)}", file=sys.stderr)
         return json.dumps({"status": "ERROR"}), 500
